@@ -24,10 +24,36 @@ public class ClientHandler implements Runnable{
         try {
             //读取客户端发过来的消息
             InputStream in = socket.getInputStream();
+
+            char pre = 'a',cur = 'a';//pre上次读取的字符，cur本次读取的字符
+            StringBuilder builder = new StringBuilder();
             int d;
-            while ((d = in.read())!= -1){
-                System.out.print((char) d);
+            while ((d = in.read())!=-1){
+                cur = (char) d;//本次读取到的字符
+                if (pre==13&&cur==10){//判断是否连续读取到了回车和换行符
+                    break;
+                }
+                builder.append(cur);
+                pre = cur;//在进行下次读取字符前将本次读取的字符记作上次读取的字符
             }
+            String line = builder.toString().trim();
+            System.out.println(line);
+
+            String method;//请求方式
+            String uri;//抽象路径
+            String protocol;//协议版本
+//            method = line.substring(0,3);
+//            uri = line.substring(3,21);
+//            protocol = line.substring(21,30);
+            String[] array = line.split("\\s");
+            method = array[0];
+            uri = array[1];//这里可能会出现数组下标越界异常!原因:浏览器空请求，后期会解决
+            protocol = array[2];
+            //http://localhost:8088/myweb/index.html
+            System.out.println("method:"+method);    //GET
+            System.out.println("uri:"+uri);          // /myweb/index.html
+            System.out.println("protocol:"+protocol);//HTTP/1.1
+
         }catch (IOException e){
             e.printStackTrace();
         }
