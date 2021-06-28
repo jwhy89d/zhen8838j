@@ -56,7 +56,9 @@ public class ClientHandler implements Runnable{
             println("Content-Length:"+file.length());
             println("");
             //3.3发送响应正文(index.html页面的数据)发送给浏览器
+            //负责给浏览器发送
             OutputStream out = socket.getOutputStream();
+            //获取文件的字节
             FileInputStream fis = new FileInputStream(file);
             int len;
             byte[] data = new byte[1024*10];
