@@ -42,12 +42,38 @@ public class UserController {
         String password = request.getParameter("password");
         String nickname = request.getParameter("nickname");
         String ageStr = request.getParameter("age");
+         /*
+            必要的验证，要求:
+            四项信息不能为null，并且年龄必须是一个数字(正则表达式)
+            否则直接给用户一个注册失败的页面:reg_input_error.html
+            该页面剧中显示一行字:输入信息有误，注册失败。
+            实现思路:
+            添加一个分支判断，如果符合了上述的情况，直接创建一个File对象表示
+            错误提示页面，然后将其设置到响应对象的正文上即可。否则才执行下面
+            原有的注册操作。
+          */
+        String ages = "^[0-9]*[1-9][0-9]*$";
+
+        if (username==null||password==null||nickname==null||ageStr==null||!ageStr.matches(ages)){
+            File file = new File(staticDir,"/myweb/reg_input_error.html");
+            response.setContentFile(file);
+            return;
+        }
         int age = Integer.parseInt(ageStr);
 
         System.out.println(username+","+password+","+nickname+","+ageStr);
 
         //2.将用户信息保存
         File userFile = new File(userDir,username+".obj");
+        /*
+            判断是否为重复用户，若重复用户，则直接响应页面:have_user.html
+            该页面剧中显示一行字:该用户已存在，请重新注册
+         */
+        if (userFile.exists()){//文件存在则说明是重复用户
+            File file = new File(staticDir,"/myweb/have_user.html");
+            response.setContentFile(file);
+            return;
+        }
         try (
                 FileOutputStream fos = new FileOutputStream(userFile);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
