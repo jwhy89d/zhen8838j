@@ -8,25 +8,25 @@ import java.io.Serializable;
  */
 public class Article implements Serializable {
     public static final long serialVersionUID = 2L;
-    private String headline;//标题
+    private String title;//标题
     private String author;//作者
     private String content;
 
     public Article() {
     }
 
-    public Article(String headline, String author, String content) {
-        this.headline = headline;
+    public Article(String title, String author, String content) {
+        this.title = title;
         this.author = author;
         this.content = content;
     }
 
     public String getHeadline() {
-        return headline;
+        return title;
     }
 
     public void setHeadline(String headline) {
-        this.headline = headline;
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -48,7 +48,7 @@ public class Article implements Serializable {
     @Override
     public String toString() {
         return "Article{" +
-                "headline='" + headline + '\'' +
+                "headline='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", content='" + content + '\'' +
                 '}';

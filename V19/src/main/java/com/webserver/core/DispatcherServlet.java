@@ -42,7 +42,7 @@ public class DispatcherServlet {
             UserController controller = new UserController();
             controller.login(request,response);
         }else if ("/myweb/writeArticle".equals(path)){
-            System.out.println("!!!!!!!!!!!!!!!!开始发送文章");
+            System.out.println("!!!!!!!!!!!!!!!!开始发表文章");
             ArticleController controller = new ArticleController();
             controller.writeArticle(request,response);
         }

@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
  * @create 2022-04-14 12:12
  */
 public class ArticleController {
-    private static File articlesDir;
+    private static File articlesDir;//存放所有文章的目录
     private static File root;
     private static File staticDir;
     static {
@@ -31,18 +31,26 @@ public class ArticleController {
             articlesDir.mkdirs();
         }
     }
+
+    /**
+     *
+     * @param request
+     * @param response
+     */
     public void writeArticle(HttpServletRequest request, HttpServletResponse response){
-        String headline = request.getParameter("headline");
+        //1.获取表单数据
+        String title = request.getParameter("title");
         String author = request.getParameter("author");
         String content = request.getParameter("content");
-        System.out.println(headline+","+author+","+content);
+        System.out.println(title+","+author+","+content);
 
-        if (headline == null || content == null || author == null){
+        if (title == null || content == null || author == null){
             File file = new File(staticDir,"/myweb/article_fail.html");
             response.setContentFile(file);
             return;
         }
-        File artFile = new File(articlesDir,headline+".obj");
+        //2.保存文章
+        File artFile = new File(articlesDir,title+".obj");
         if (artFile.exists()){
             File file = new File(staticDir,"/myweb/article_fail.html");
             response.setContentFile(file);
@@ -52,7 +60,7 @@ public class ArticleController {
                 FileOutputStream fos = new FileOutputStream(artFile);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 ){
-            Article article = new Article(headline,author,content);
+            Article article = new Article(title,author,content);
                 oos.writeObject(article);
             File file = new File(staticDir,"/myweb/article_success.html");
             response.setContentFile(file);
