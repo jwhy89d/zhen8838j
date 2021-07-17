@@ -141,8 +141,14 @@ public class HttpServletRequest {
         System.out.println(">>>>>>>>1:"+method);
         if ("post".equalsIgnoreCase(method)){
             System.out.println(">>>>>>>>2:"+method);
-            //消息头中是否含有Content-Length;
-            // containsKey():表示Map中的是否包含这个key
+            /*
+                消息头中是否含有Content-Length;
+                containsKey():表示Map中的是否包含这个key
+                包含Content-Length和Content-Type就说明有消息正文
+                正文中的消息就是?右边的值
+                username=xxxx&password=xxxx&nickname=xx&age=xx
+             */
+
             if (headers.containsKey("content-length")){
                 int contentLength = Integer.parseInt(
                         headers.get("content-length")
