@@ -1,6 +1,7 @@
 package com.webserver.core;
 
 import com.webserver.controller.ArticleController;
+import com.webserver.controller.ToolsController;
 import com.webserver.controller.UserController;
 import com.webserver.http.HttpServletRequest;
 import com.webserver.http.HttpServletResponse;
@@ -53,6 +54,10 @@ public class DispatcherServlet {
             System.out.println("!!!!!!!!!!!!!!!!开始处理文章列表");
             ArticleController controller = new ArticleController();
             controller.showAllArticle(request,response);
+        }else if ("/myweb/createQR".equals(path)){
+            System.out.println("!!!!!!!!!!!!!!!!开始二维码生成");
+            ToolsController controller = new ToolsController();
+            controller.createQr(request,response);
         }
         else {
 
