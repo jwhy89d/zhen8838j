@@ -70,6 +70,7 @@ public class HttpServletRequest {
 //                }
 //            }
         String line;
+        //读取到的消息头是否为空
         while (!(line = readLine()).isEmpty()) {
             System.out.println("消息头:" + line);
             //将消息头按照"冒号空格"拆分为消息头的名字和值并以key,value存入headers

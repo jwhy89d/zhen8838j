@@ -34,7 +34,7 @@ public class ToolsController {
     public void createQr(HttpServletRequest request, HttpServletResponse response) {
         String content = request.getParameter("content");
         try {
-            QRCodeUtil.encode(content, "123.jpg", response.getOutputStream(), true);
+            QRCodeUtil.encode(content, "1234.jpg", response.getOutputStream(), true);
             response.setContentType("image/jpeg");
 
         } catch (Exception e) {
