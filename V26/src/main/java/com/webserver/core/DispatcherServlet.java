@@ -46,6 +46,7 @@ public class DispatcherServlet {
 //                mm.getMethod().invoke(mm.getController(),request,response);
                 Object controller = mm.getController();
                 Method method = mm.getMethod();
+                //因为反射要调用的方法中要传参request,response 所以invoke要填
                 method.invoke(controller,request,response);
                 return;
             }
